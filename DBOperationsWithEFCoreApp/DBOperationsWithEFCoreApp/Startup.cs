@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using DBOperationsWithEFCoreApp.Data;
 
 namespace DBOperationsWithEFCoreApp
 {
@@ -26,7 +28,9 @@ namespace DBOperationsWithEFCoreApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddDbContext<AppDBContext>(options =>
+            options.UseOracle(Configuration.GetConnectionString("OracleDbConnection"))
+            );
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
